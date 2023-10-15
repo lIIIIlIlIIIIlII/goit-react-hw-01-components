@@ -1,28 +1,29 @@
-import {
-  TransactionHistoryTable, CollumnNames, CollumnValues, ColoredColors
-
-} from 'components/TransactionHistory/TransactionHistory.styled';
+import PropTypes from 'prop-types';
+import css from './TransactionHistory.module.css';
 
 export const TransactionHistory = ({ items }) => {
-    return <TransactionHistoryTable class="transaction-history">
-  <thead>
-    <ColoredColors>
-      <CollumnNames>Type</CollumnNames>
-      <CollumnNames>Amount</CollumnNames>
-      <CollumnNames>Currency</CollumnNames>
-    </ColoredColors>
-  </thead>
+  return (
+    <table className={css.transactionHistory}>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Currency</th>
+        </tr>
+      </thead>
+      <tbody>
+        {items.map(item => (
+          <tr key={item.id}>
+            <td>{item.type}</td>
+            <td>{item.amount}</td>
+            <td>{item.currency}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
 
-        <tbody>
-            {items.map(({ id, type, amount, currency }) => (
-                 <ColoredColors key={id}>
-      <CollumnValues>{type}</CollumnValues>
-      <CollumnValues>{amount}</CollumnValues>
-      <CollumnValues>{currency}</CollumnValues>
-    </ColoredColors>
-            ))}
-     </tbody>
-</TransactionHistoryTable>
-}
-
-
+TransactionHistory.propTypes = {
+  items: PropTypes.array.isRequired,
+};

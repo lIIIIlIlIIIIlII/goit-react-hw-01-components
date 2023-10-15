@@ -1,17 +1,23 @@
-import { FcOk, FcCancel } from "react-icons/fc";
-import {
-  FrienfsListItem, FriendsStatus, FriendsAvatar, FriendsName
-} from 'components/FriendListItem/FriendListItem.styled';
+import PropTypes from 'prop-types';
+import css from './FriendListItem.module.css';
 
 export const FriendListItem = ({ avatar, name, isOnline }) => {
   return (
     <>
-     <FrienfsListItem class="item">
-              <FriendsStatus class="status">{isOnline?<FcOk />  : <FcCancel />  }</FriendsStatus>
-              <FriendsAvatar class="avatar" src={avatar} alt="User avatar" width="48" />
-              <FriendsName class="name">{ name }</FriendsName>
-      </FrienfsListItem>
+      <li className={css.item}>
+        <span
+          className={`${css.status} ${isOnline ? css.online : css.offline}`}
+        >
+          {isOnline}
+        </span>
+        <img className={css.avatar} src={avatar} alt="User avatar" width="48" />
+        <p className={css.name}>{name}</p>
+      </li>
     </>
   );
 };
 
+FriendListItem.propTypes = {
+  avatar: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+};
